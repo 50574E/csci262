@@ -1,0 +1,76 @@
+// Needs Analysis ***Sketch***
+// This file is an attempt at an overview of functions needed
+
+
+// takes in a line from Events.txt and breaks up into manageable parts
+Event parseEvent(String eventLine)
+// Returns an Event object
+
+// take in a line from Stats.txt and breaks up into manageable parts
+void parseStats(String statLine)
+// operates on an Event object
+
+// Generates data according to normal distribution?
+// dayNum is probably not needed just sake of completeness...
+Day generateData(Double mean, Double stdDev, Char type, int dayNum)
+// Returns a Day object/array/datafile
+
+
+
+
+Event {
+// Data
+String name   : <name>
+Char type     : <Continuous, Discreet or E-discreet>
+min    : <Integer if type==Discreet else Double with two decimals>
+max    : <Same type as min>
+String unit   : <unit of measurement>
+Int weight    : <weight>
+Double mean   : <mean of probability distribution>
+Double stdDev : <standard deviation>
+
+// Functions
+
+}
+
+
+// Could be an array of tuples or whatever
+Day {
+// Data
+(String eventName, Int/Double freq)  : (<name>,<number of occurances over the day>)
+
+// Functions
+
+}
+
+
+--- Above is brainstorm ---
+
+Data that needs to be kept track of:
+
+C events
+D events
+E events
+^^^^^^^^ Inherited from Event
+
+
+Day data:
+- Individual days associated with each stat file
+- Aggregate day data also associated with each stat file
+
+
+This is very much a work in progress
+
+Virus.java from W8 exercise wrote files like so:
+
+import java.util.*;
+import java.io.*;
+import java.*;
+public class virus {
+  public static void main(String[] args) {
+    ...
+  }
+  String filename = ...
+  PrintWriter o = new PrintWriter(new FileWriter(filename))
+  o.write("program, use \n for linebreaks etc")
+}
