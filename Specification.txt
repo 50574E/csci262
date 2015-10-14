@@ -1,0 +1,147 @@
+Honeypot event modeller and intrusion detection system
+
+Language : Java
+Compiler : javac <TODO: Check banshee version>
+
+Specification:
+
+~~~==== Initial input ====~~~
+
+The program should run from the command line:
+$ IDS Events.txt Username Stats.txt Days
+
+-=- Events.txt -=-
+Describes event parameters it consists of n+1 lines the first line has the number, n, of events being monitored. Every line after that is of the form:
+Event name:[CDE]:minimum:maximum:units:weight:
+name:type:min:max:unit:w:
+String:Char/String:<depends on type>:<depends on type>:String:Int:
+
+For example:
+Logins:D:0:::2:
+Download volume:E:0::bits:1:
+Money made:E:::cents:2:
+
+[C]ontinuous - recorded to two decimal places
+[D]iscreet
+[E] is a special type of discreet event
+
+the other fields give the acceptable range for values, the measurement unit and importance (respectively).
+
+
+-=- Username -=-
+Is the username of the user to be studied.
+
+
+-=- Stats.txt -=-
+Again n+1 lines, first line = n. Subsequent lines are of the form:
+Event name:mean:standard deviation:
+name:mean:stdDev:
+String:Double:Double:
+
+Example:
+Logins:4:1.5
+Time online:100.25:35.00
+etc. (see assignment)
+
+
+-=- Days -=-
+Used by activity engine to decide how many days to generate.
+
+
+~~~==== Activity Engine and the Logs ====~~~
+Generates and logs events as well as printing out some indication that things are 'happening' without going into detail, for example:
+- Announce that the program is going to start this phase
+- Announce which day is currently being generated
+  = Without printing any of the details being generated
+- Announce that it has finished this phase and is moving on
+
+The events do not have to have a logical set up (log in ending in a logout or time online ending in a 'going offline' event). Basically you just need to generate the events asked for in the input and record the data in accordance with the type specified [CDE].
+
+The statistics generated should correspond approximately (approach as time tends to infinity) the statistics specified in the Stats.txt file.
+
+The data generated can be stored in a single or multiple log file(s) (whichever we think is easier). However the data has to be human readable.
+
+
+~~~==== Analysis Engine ====~~~
+This stage is basically just an algorithm:
+- Announce that the analysis is starting
+- Measure baseline data for the events
+- Determine the statistics associated with the baseline
+- Produce totals for each day
+- Store totals in a data file
+- Determine the mean and standard deviation of the data in that file
+- Report results
+
+Each step should print "Beginning <step> ..." at beginning and then without a linebreak "Complete!" on completion.
+
+
+~~~==== Alert Engine ====~~~
+Checks if the data generated falls within bounds of the data that is expected. This phase will repeat until the user specifies that he wants to quit the program.
+
+The program should prompt the user for a new Stats.txt file then run the activity engine on it but this time it will use the standard deviation and mean from the original data (that was reported prior to starting this step for the first time) as well as the weights from the original Events.txt to determine if there is an anomaly.
+
+The anomaly detection uses the weights (w[1] ... w[n]) to determine the anomaly threshold (sum of weights) and the mean+stdDev to determine how abnormal each individual event is.
+
+Basically:
+distance = weight * (observation - mean)/stdDev
+if(Sum_of_distances > threshold) => report_anomaly
+
+The program should print:
+- The threshold
+- The anomaly counter (Sum_of_distances)
+- whether the day was ok or if it was flagged
+For each day.
+
+Then the program just repeats the loop.
+
+
+------------ Report -------------
+
+A pdf report is a fundamental part of the assignment it should be broken into sections with each section focusing on a component in the implementation. The four components are;
+- Inital input
+- Activity engine and the Logs
+- Analysis Engine
+- Alert Engine
+
+Initial input:
+Should describe how we handle input, that is how we store the events and statistics internally (data structure) and how we are going to detect and handle potential inconsistencies between Events.txt and Stats.txt - obviously we should report on any shortcoming of our implementation.
+
+Activity engine:
+Describe the process used to generate the events. Specifically how we managed to be approximately consistent with the desired probability distribution (specified by the parameters in Stats.txt).
+
+Describe and justify the reasoning behind the format used for storing the data generated, this includes how the naming scheme of the log file(s) works.
+
+Analysis Engine:
+Write a specification for the daily totals data file. Describe any possible anomalies in reading the logs or determining the statistics.
+
+Alert Engine:
+Describe whatever seems relevant.
+
+
+
+
+Recap:
+
+Preprocessing phase:
+
+The program takes in 4 arguments: Event_Template, username, Baseline_Statistics, Number_of_Days.
+
+It uses the Baseline_Statistics to generate an aproximation of the baseline, it does this Number_of_Days often and saves the data (days[] = day1, day2 etc.)
+
+Then it takes the data generated this way and consolidates it into a single file. It also calculates the mean and stdDev of this data.
+
+
+Interactive phase:
+
+Now it asks for a new Statistics file to be analysed.
+
+It uses the same process as before to generate an aproximation but now for every day generated this way it:
+- calculates the deviation from the statistic generated in the preprocessing phase
+ = That is how many standard deviations away from the mean it is multiplied by the weight specified in Event_Template
+- Then it uses the weights from the Event_Template create a threshold for allowed magnitude of deviation (max distance)
+ = The sum of distances is compared to double the sume of the weights (threshold).
+- It reports the findings for the day before moving on to the next day
+
+Then it repeats this process until the user has no more statistics files to be analysed.
+
+
