@@ -181,7 +181,7 @@ public class Main {
 	public static boolean alertEngine(int[] freq) {
 	    int threshold = 0;
 	    double alert = 0;
-	    for(int i = 0; i<w.length; i++) {
+	    for(int i = 0; i<nrOfEvents; i++) {
 		threshold += Events.get(i).weight;
 		alert += Events.get(i).weight*(freq[i]-Stats.get(i).mean)/Stats.get(i).std;
 	    }
