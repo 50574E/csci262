@@ -26,19 +26,7 @@ public class Main {
 		while(in.hasNext()){
 			String ny = in.nextLine();
 			String[] nyy = ny.split(":");
-			String name;
-			double mean = 0;
-			double std = 0;
-			if(!nyy[1].isEmpty()){
-				mean = Double.parseDouble(nyy[1]);
-			}
-			else{System.out.println("missing mean, mean set to 0");}
-			if(!nyy[2].isEmpty()){
-				mean = Double.parseDouble(nyy[2]);
-			}
-			else{System.out.println("missing std, std set to 0");}
-			
-			Stats.add(new Stat(nyy[0], mean, std));
+			Stats.add(new Stat(nyy[0], parseD(nyy[1]), parseD(nyy[2])));
 		}
 	}
 	
@@ -65,12 +53,12 @@ public class Main {
 				hasMax = false;
 				max = 0;
 			}
-			else{max = Double.parseDouble(nyy[2]);}
+			else{max = Double.parseDouble(nyy[1]);}
 			if(nyy[3].isEmpty()){
 				hasMin = false;
 				min = 0;
 			}
-			else{min = Double.parseDouble(nyy[3]);}
+			else{min = Double.parseDouble(nyy[1]);}
 			if(nyy[4].isEmpty()){
 				hasUnit = false;
 				unit = "";
@@ -81,7 +69,7 @@ public class Main {
 				hasWeight = false;
 				weigth = 0;
 			}
-			else{weigth = Integer.parseInt(nyy[5]);}
+			else{weigth = Integer.parseInt(nyy[1]);}
 			
 			
 			

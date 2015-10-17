@@ -26,19 +26,7 @@ public class Main {
 		while(in.hasNext()){
 			String ny = in.nextLine();
 			String[] nyy = ny.split(":");
-			String name;
-			double mean = 0;
-			double std = 0;
-			if(!nyy[1].isEmpty()){
-				mean = Double.parseDouble(nyy[1]);
-			}
-			else{System.out.println("missing mean, mean set to 0");}
-			if(!nyy[2].isEmpty()){
-				mean = Double.parseDouble(nyy[2]);
-			}
-			else{System.out.println("missing std, std set to 0");}
-			
-			Stats.add(new Stat(nyy[0], mean, std));
+			Stats.add(new Stat(nyy[0], parseD(nyy[1]), parseD(nyy[2])));
 		}
 	}
 	
