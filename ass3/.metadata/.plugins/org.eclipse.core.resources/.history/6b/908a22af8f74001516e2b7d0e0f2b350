@@ -93,6 +93,7 @@ public class Main {
 		Scanner in = new Scanner(new FileReader("Days.txt"));
 		String ini = in.nextLine();
 		String[] init = ini.split(" ");
+		System.out.println(init.length);
 		in.close();
 		for(int i=1; i<init.length; i++){
 			Scanner inn = new Scanner(new FileReader("Days.txt"));

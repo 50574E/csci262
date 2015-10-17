@@ -93,51 +93,21 @@ public class Main {
 		Scanner in = new Scanner(new FileReader("Days.txt"));
 		String ini = in.nextLine();
 		String[] init = ini.split(" ");
+		System.out.println(init.length);
 		in.close();
 		for(int i=1; i<init.length; i++){
 			Scanner inn = new Scanner(new FileReader("Days.txt"));
-			inn.nextLine();
+			System.out.println("reset");
 			ArrayList<Double> read = new ArrayList<Double>();
 			while(inn.hasNext()){
 				String[] day = inn.nextLine().split(" ");
-				read.add(Double.parseDouble(day[i]));
+				System.out.println(day[i]);
 			}
-			System.out.println(init[i]);
-			System.out.println(calcAvg(read));
-			System.out.println(calcStd(read));
 			inn.close();
 			
 		}
 		
 	}
-	
-	public static double calcAvg(ArrayList<Double> data){
-	double n = data.size();
-	double tot = 0;
-	for(int i=0; i<data.size(); i++){
-		tot += data.get(i); 
-	}
-	
-	double avg = tot/n;
-	
-	return avg;
-	
-	}
-	
-	public static double calcStd(ArrayList<Double> data){
-	double avg = calcAvg(data);
-	double n = data.size();
-	double sum = 0;
-	for(int i = 0; i<data.size(); i++){
-		double x = data.get(i);
-		sum += Math.pow((x-avg), 2);
-	}
-	
-	double std = Math.sqrt(sum/n);
-	
-	return std;
-}
-	
 	
 		
 	

@@ -11,6 +11,8 @@ public class Event {
 	boolean hasWeight;
 	int weight;
 	
+
+	
 	
 	public Event(String name, String type, boolean hasMax, double max,
 			boolean hasMin, double min, boolean hasUnit, String unit,

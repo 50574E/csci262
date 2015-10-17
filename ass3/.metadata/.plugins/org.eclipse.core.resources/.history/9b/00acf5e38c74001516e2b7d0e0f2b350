@@ -14,7 +14,8 @@ public class Main {
 		getStats();
 		getEvents();
 		produceMeanStd();
-
+		System.out.println(Stats);
+		System.out.println(Events);
 		
 		
 
@@ -91,53 +92,12 @@ public class Main {
 	
 	public static void produceMeanStd() throws FileNotFoundException{
 		Scanner in = new Scanner(new FileReader("Days.txt"));
-		String ini = in.nextLine();
-		String[] init = ini.split(" ");
-		in.close();
-		for(int i=1; i<init.length; i++){
-			Scanner inn = new Scanner(new FileReader("Days.txt"));
-			inn.nextLine();
-			ArrayList<Double> read = new ArrayList<Double>();
-			while(inn.hasNext()){
-				String[] day = inn.nextLine().split(" ");
-				read.add(Double.parseDouble(day[i]));
-			}
-			System.out.println(init[i]);
-			System.out.println(calcAvg(read));
-			System.out.println(calcStd(read));
-			inn.close();
+		System.out.println(in.nextLine());
+		while(in.hasNext()){
+			System.out.println(in.nextLine());
 			
 		}
-		
 	}
-	
-	public static double calcAvg(ArrayList<Double> data){
-	double n = data.size();
-	double tot = 0;
-	for(int i=0; i<data.size(); i++){
-		tot += data.get(i); 
-	}
-	
-	double avg = tot/n;
-	
-	return avg;
-	
-	}
-	
-	public static double calcStd(ArrayList<Double> data){
-	double avg = calcAvg(data);
-	double n = data.size();
-	double sum = 0;
-	for(int i = 0; i<data.size(); i++){
-		double x = data.get(i);
-		sum += Math.pow((x-avg), 2);
-	}
-	
-	double std = Math.sqrt(sum/n);
-	
-	return std;
-}
-	
 	
 		
 	
