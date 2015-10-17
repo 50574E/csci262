@@ -1,7 +1,7 @@
 Honeypot event modeller and intrusion detection system
 
 Language : Java
-Compiler : javac <TODO: Check banshee version>
+Compiler : javac 1.6.0_101
 
 Specification:
 

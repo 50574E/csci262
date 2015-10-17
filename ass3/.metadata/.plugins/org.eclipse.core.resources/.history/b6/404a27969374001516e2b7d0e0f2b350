@@ -18,9 +18,10 @@ public class Main {
 
 
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
-		
-		
-		
+		day = new PrintWriter("days.txt", "UTF-8");
+		getStats();
+		getEvents();
+		produceMeanStd();
 
 
 		System.out.println(Stats);
@@ -96,7 +97,7 @@ public class Main {
 		}
 	}
 	
-	public static String produceMeanStd() throws FileNotFoundException{
+	public static void produceMeanStd() throws FileNotFoundException{
 		Scanner in = new Scanner(new FileReader("Days.txt"));
 		String ini = in.nextLine();
 		String[] init = ini.split(" ");
@@ -115,7 +116,6 @@ public class Main {
 			inn.close();
 			
 		}
-		return "";
 		
 	}
 	
@@ -174,16 +174,7 @@ public class Main {
 	    return ;
 	}
 
-	public static String preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
-	    getStats();
-		getEvents();
-		initDays(days);
-	    String fileName = produceMeanStd();
-	    return fileName;
-	}
-	
-	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{
-		day = new PrintWriter("days.txt", "UTF-8");
+	public static void preprocessing(int days) {
 	    // Initiates the day file with names of events
 	    for(int i = 0; i<nrOfEvents; i++) {
 		day.write(Events.get(i).name+" ");
@@ -198,7 +189,7 @@ public class Main {
 		}
 		day.write("\n");
 	    }
-	    
+	    return;
 	}
 
 

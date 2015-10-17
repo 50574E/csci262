@@ -2,7 +2,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.File;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -14,17 +13,22 @@ public class Main {
 	static int nrOfStats;
 	static int nrOfEvents;
 	// Creates days.txt and appends the names of events to top line
-	static PrintWriter day;
+	PrintWriter day = new PrintWriter("days.txt", "UTF-8");
 
 
-	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
+	public static void main(String[] args) throws FileNotFoundException{
+		getStats();
+		getEvents();
+<<<<<<< HEAD
+		produceMeanStd();
+
 		
 		
-		
 
-
+=======
 		System.out.println(Stats);
 		System.out.println(Events);
+>>>>>>> b9a062af8782d632875f2f27389178286903f826
 	}
 	
 	public static void getStats() throws FileNotFoundException{
@@ -96,7 +100,7 @@ public class Main {
 		}
 	}
 	
-	public static String produceMeanStd() throws FileNotFoundException{
+	public static void produceMeanStd() throws FileNotFoundException{
 		Scanner in = new Scanner(new FileReader("Days.txt"));
 		String ini = in.nextLine();
 		String[] init = ini.split(" ");
@@ -115,7 +119,6 @@ public class Main {
 			inn.close();
 			
 		}
-		return "";
 		
 	}
 	
@@ -140,6 +143,7 @@ public class Main {
 		double x = data.get(i);
 		sum += Math.pow((x-avg), 2);
 	}
+<<<<<<< HEAD
 	
 	double std = Math.sqrt(sum/n);
 	
@@ -147,6 +151,8 @@ public class Main {
 }
 	
 	
+=======
+
 	public static void normal(double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
 	    Random rng = new Random();
 	    double val = 0;
@@ -174,16 +180,7 @@ public class Main {
 	    return ;
 	}
 
-	public static String preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
-	    getStats();
-		getEvents();
-		initDays(days);
-	    String fileName = produceMeanStd();
-	    return fileName;
-	}
-	
-	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{
-		day = new PrintWriter("days.txt", "UTF-8");
+	public static void preprocessing(int days) {
 	    // Initiates the day file with names of events
 	    for(int i = 0; i<nrOfEvents; i++) {
 		day.write(Events.get(i).name+" ");
@@ -193,13 +190,16 @@ public class Main {
 	    // Generates the totals for each day and event then writes to days.txt
 	    for(int i = 0; i<days; i++) {
 		day.write("Day"+(i+1)+": ");
-		for(int j = 0; j<nrOfEvents; j++) {
-		    normal(Stats.get(j).std, Stats.get(j).mean, Events.get(j).min, Events.get(j).max, Events.get(j).hasMin, Events.get(j).hasMax);
+		for(int i = 0; i<nrOfEvents; i++) {
+		    normal(Stats.get(i).std, Stats.get(i).mean, Events.get(i).min, Events.get(i).max, Events.get(i).hasMin, Events.get(i).hasMax);
 		}
 		day.write("\n");
 	    }
-	    
+	    return;
 	}
 
+>>>>>>> b9a062af8782d632875f2f27389178286903f826
+		
+	
 
 }
