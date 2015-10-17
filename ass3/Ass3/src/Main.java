@@ -14,10 +14,6 @@ public class Main {
 	static int nrOfEvents;
 	// Creates days.txt and appends the names of events to top line
 	PrintWriter day = new PrintWriter("days.txt", "UTF-8");
-	for(int i = 0; i<nrOfEvents; i++) {
-	    day.write(Events.get(i).name+" ");
-	}
-	day.write("\n");
 
 
 	public static void main(String[] args) throws FileNotFoundException{
@@ -93,6 +89,13 @@ public class Main {
 	}
 
 	public static void preprocessing(int days) {
+	    // Initiates the day file with names of events
+	    for(int i = 0; i<nrOfEvents; i++) {
+		day.write(Events.get(i).name+" ");
+	    }
+	    day.write("\n");
+	    
+	    // Generates the totals for each day and event then writes to days.txt
 	    for(int i = 0; i<days; i++) {
 		days.write("Day"+(i+1)+": ");
 		for(int i = 0; i<nrOfEvents; i++) {
