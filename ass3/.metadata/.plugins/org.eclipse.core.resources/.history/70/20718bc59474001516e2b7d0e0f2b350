@@ -96,8 +96,7 @@ public class Main {
 		}
 	}
 	
-	public static ArrayList<Stat> produceMeanStd() throws FileNotFoundException{
-		ArrayList<Stat> base = new ArrayList<Stat>();
+	public static String produceMeanStd() throws FileNotFoundException{
 		Scanner in = new Scanner(new FileReader("Days.txt"));
 		String ini = in.nextLine();
 		String[] init = ini.split(" ");
@@ -110,16 +109,13 @@ public class Main {
 				String[] day = inn.nextLine().split(" ");
 				read.add(Double.parseDouble(day[i]));
 			}
-			String name = init[i];
-			double mean = calcAvg(read);
-			double std = calcStd(read);
-			
-			base.add(new Stat(name, mean, std));
-			
+			System.out.println(init[i]);
+			System.out.println(calcAvg(read));
+			System.out.println(calcStd(read));
 			inn.close();
 			
 		}
-		return base;
+		return "";
 		
 	}
 	
@@ -178,12 +174,12 @@ public class Main {
 	    return ;
 	}
 
-	public static ArrayList<Stat> preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
+	public static String preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
 		initDays(days);
-	    ArrayList<Stat> base = produceMeanStd();
-	    return base;
+	    String fileName = produceMeanStd();
+	    return fileName;
 	}
 	
 	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{

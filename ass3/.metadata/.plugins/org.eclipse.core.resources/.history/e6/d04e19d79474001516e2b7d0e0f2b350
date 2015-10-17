@@ -178,7 +178,7 @@ public class Main {
 	    return ;
 	}
 
-	public static ArrayList<Stat> preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
+	public static String preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
 		initDays(days);
