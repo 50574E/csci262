@@ -12,19 +12,19 @@ public class Main {
 	static ArrayList<Event> Events = new ArrayList<Event>();
 	static int nrOfStats;
 	static int nrOfEvents;
-	
+	// Creates days.txt and appends the names of events to top line
+	PrintWriter day = new PrintWriter("days.txt", "UTF-8");
+	for(int i = 0; i<nrOfEvents; i++) {
+	    day.write(Events.get(i).name+" ");
+	}
+	day.write("\n");
+
+
 	public static void main(String[] args) throws FileNotFoundException{
 		getStats();
 		getEvents();
 		System.out.println(Stats);
 		System.out.println(Events);
-		// Creates days.txt and appends the names of events to top line
-		PrintWriter day = new PrintWriter("days.txt", "UTF-8");
-		for(int i = 0; i<nrOfEvents; i++) {
-		    day.write(Events.get(i).name+" ");
-		}
-		day.write("\n");
-
 	}
 	
 	public static void getStats() throws FileNotFoundException{
@@ -65,7 +65,7 @@ public class Main {
 		}
 	}
 
-	public static double normal(double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
+	public static void normal(double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
 	    Random rng = new Random();
 	    double val = 0;
 
@@ -87,16 +87,22 @@ public class Main {
 		    works = false;
 		}
 	    }
-	    return val;
+	    day.write(""+val+" ");
+
+	    return ;
 	}
 
-	public static void dayWriter(PrintWriter day, double frequency[]) {
-	    for(int i = 0; i<frequency.length; i++) {
-		day.write(frequency[i]+" ");
+	public static void preprocessing(int days) {
+	    for(int i = 0; i<days; i++) {
+		days.write("Day"+(i+1)+": ");
+		for(int i = 0; i<nrOfEvents; i++) {
+		    normal(Stats.get(i).std, Stats.get(i).mean, Events.get(i).min, Events.get(i).max, Events.get(i).hasMin, Events.get(i).hasMax);
+		}
+		days.write("\n");
 	    }
-	    day.write("\n");
 	    return;
 	}
+
 		
 	
 
