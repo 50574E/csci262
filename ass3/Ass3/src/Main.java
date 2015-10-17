@@ -178,6 +178,19 @@ public class Main {
 	    return ;
 	}
 
+	public static boolean alertEngine(int[] freq) {
+	    int threshold = 0;
+	    double alert = 0;
+	    for(int i = 0; i<w.length; i++) {
+		threshold += Events.get(i).weight;
+		alert += Events.get(i).weight*(freq[i]-Stats.get(i).mean)/Stats.get(i).std;
+	    }
+	    if(alert > threshold) {
+		return true;
+	    }
+	    return false;
+	}
+
 	public static ArrayList<Stat> preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
