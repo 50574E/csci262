@@ -97,11 +97,11 @@ public class Main {
 	    
 	    // Generates the totals for each day and event then writes to days.txt
 	    for(int i = 0; i<days; i++) {
-		days.write("Day"+(i+1)+": ");
+		day.write("Day"+(i+1)+": ");
 		for(int i = 0; i<nrOfEvents; i++) {
 		    normal(Stats.get(i).std, Stats.get(i).mean, Events.get(i).min, Events.get(i).max, Events.get(i).hasMin, Events.get(i).hasMax);
 		}
-		days.write("\n");
+		day.write("\n");
 	    }
 	    return;
 	}
