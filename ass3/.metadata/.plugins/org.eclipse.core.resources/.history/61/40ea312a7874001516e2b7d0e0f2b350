@@ -1,0 +1,20 @@
+
+public class Stat {
+	String name;
+	int mean;
+	int std;
+	
+	
+	public Stat(String name, int mean, int std) {
+		this.name = name;
+		this.mean = mean;
+		this.std = std;
+	}
+	
+	public String toString(){
+		return name + "  " + mean + "  "+ std;
+	}
+	
+	
+
+}
