@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -16,8 +18,12 @@ public class Main {
 		getEvents();
 		System.out.println(Stats);
 		System.out.println(Events);
-		
-		
+		// Creates days.txt and appends the names of events to top line
+		PrintWriter day = new PrintWriter("days.txt", "UTF-8");
+		for(int i = 0; i<nrOfEvents; i++) {
+		    day.write(Events.get(i).name+" ");
+		}
+		day.write("\n");
 
 	}
 	
@@ -82,6 +88,14 @@ public class Main {
 		}
 	    }
 	    return val;
+	}
+
+	public static void dayWriter(PrintWriter day, double frequency[]) {
+	    for(int i = 0; i<frequency.length; i++) {
+		day.write(frequency[i]+" ");
+	    }
+	    day.write("\n");
+	    return;
 	}
 		
 	
