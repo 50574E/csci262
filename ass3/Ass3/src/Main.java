@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 
 public class Main {
@@ -57,7 +58,31 @@ public class Main {
 		return 0;
 		}
 	}
-	
+
+	public static double normal(double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
+	    Random rng = new Random();
+	    double val = 0;
+
+	    // Bad variable name and stupid if-else logic.
+	    boolean works = true;
+	    while(works) {
+		val = rng.nextGaussian()*stdDev + mean;
+		
+		if(!hasMin && !hasMax) {
+		    works = false;
+		}
+		else if(hasMin && min < val && !hasMax) {
+		    works = false;
+		}
+		else if(!hasMin && hasMax && val < max) {
+		    works = false;
+		}
+		else if(hasMin && hasMax && min < val && val < max) {
+		    works = false;
+		}
+	    }
+	    return val;
+	}
 		
 	
 
