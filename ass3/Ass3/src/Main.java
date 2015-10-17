@@ -178,7 +178,7 @@ public class Main {
 	    return ;
 	}
 
-	public static boolean alertEngine(int[] freq) {
+	public static boolean alertEngine(int[] freq, ArrayList<Stat> base) {
 	    int threshold = 0;
 	    double alert = 0;
 	    for(int i = 0; i<nrOfEvents; i++) {
