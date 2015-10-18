@@ -222,7 +222,7 @@ public class Main {
 	    // Creates the list with the items to print
 	    ArrayList<LogItem> log = new ArrayList();
 
-	    // Writes to the file
+	    // Creates the data for the logfile
 	    while(eventNum != -1) {
 		eventNum = pickEvent(totals); // Chooses which event is going to happen
 		time[2] += rng.nextInt(3600);
