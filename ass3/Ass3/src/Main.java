@@ -274,7 +274,12 @@ public class Main {
 	}
 
 	public static void writeToLog(PrintWriter file, ArrayList<LogItem> Log) {
-	//fill function
+	    // Sort the log by time
+	    Collections.sort(Log);
+	    // Write to file
+	    for(int i = 0; i<Log.size(); i++) {
+		file.write("<"+Log.get(i).hours+":"+Log.get(i).mins+":"+Log.get(i).secs+"> "+Log.get(i).name+": "+Log.get(i).size+" "+Log.get(i).unit+"\n";
+	    }
 	}
 
 	public static int[] incTime(int hrs, int min, int sec) {
