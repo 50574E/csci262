@@ -233,7 +233,7 @@ public class Main {
 		type = Events.get(eventNum).type;
 		size = eventMagnitude(type, totals[eventNum]);
 		// Puts the data into the logItem
-		printMe = new LogItem(time[0], time[1], time[2], name, size, unit);
+		printMe = new LogItem(time[0], time[1], time[2], name, size, unit, type);
 		// Appends to log
 		log.add(printMe);
 		// Updates totals to avoid infinite loop
@@ -283,15 +283,19 @@ public class Main {
 		item += timeFormat(Log.get(i).mins)+":";
 		item += timeFormat(Log.get(i).secs)+"> ";
 		item += Log.get(i).name+": ";
-		item += sizeFormat(Log.get(i).size)+" ";
+		item += sizeFormat(Log.get(i).size, Log.get(i).type)+" "; 
 		item += Log.get(i).unit+"\n";
 		file.write(item);
 	    }
 	}
 
 	public static String sizeFormat(double size, String type) {
-	    if(type.Equals("E")) return ""+((int) (size.round()));
-	    if(type.Equals("D")) return "1";
+	    if(type.equals("E")) {
+		return ""+((int) (Math.round(size)));
+	    }
+	    else if(type.equals("D")) {
+		return "1";
+	    }
 	    return rounder(""+size);
 	}
 
