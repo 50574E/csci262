@@ -276,7 +276,9 @@ public class Main {
 	public static void writeToLog(PrintWriter file, ArrayList<LogItem> Log) {
 	    // Sort the log by time
 	    Collections.sort(Log);
-	    // Write to file
+	    // Write to file; todo: make size be an integer when applicable
+	    // Also limit doubles to two digits after the period
+	    // Also fix time format to be consistent (00:04:21 rather than 0:4:21)
 	    for(int i = 0; i<Log.size(); i++) {
 		file.write("<"+Log.get(i).hours+":"+Log.get(i).mins+":"+Log.get(i).secs+"> "+Log.get(i).name+": "+Log.get(i).size+" "+Log.get(i).unit+"\n");
 	    }
