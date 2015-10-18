@@ -276,12 +276,37 @@ public class Main {
 	public static void writeToLog(PrintWriter file, ArrayList<LogItem> Log) {
 	    // Sort the log by time
 	    Collections.sort(Log);
-	    // Write to file; todo: make size be an integer when applicable
-	    // Also limit doubles to two digits after the period
-	    // Also fix time format to be consistent (00:04:21 rather than 0:4:21)
+	    String item;
 	    for(int i = 0; i<Log.size(); i++) {
-		file.write("<"+Log.get(i).hours+":"+Log.get(i).mins+":"+Log.get(i).secs+"> "+Log.get(i).name+": "+Log.get(i).size+" "+Log.get(i).unit+"\n");
+		item = "<";
+		item += timeFormat(Log.get(i).hours)+":";
+		item += timeFormat(Log.get(i).mins)+":";
+		item += timeFormat(Log.get(i).secs)+"> ";
+		item += Log.get(i).name+": ";
+		item += sizeFormat(Log.get(i).size)+" ";
+		item += Log.get(i).unit+"\n";
+		file.write(item);
 	    }
+	}
+
+	public static String sizeFormat(double size, String type) {
+	    if(type.Equals("E")) return ""+((int) (size.round()));
+	    if(type.Equals("D")) return "1";
+	    return rounder(""+size);
+	}
+
+	public static String rounder(String dubs) {
+	    String num = "";
+	    int stop = dubs.indexOf('.')+2;
+	    for(int i = 0; i<stop+1; i++) {
+		num += dubs.charAt(i);
+	    }
+	    return num;
+	}
+
+	public static String timeFormat(int n) {
+	    if((""+n).length() == 1) return "0"+n;
+	    return ""+n;
 	}
 
 	public static int[] incTime(int hrs, int min, int sec) {
