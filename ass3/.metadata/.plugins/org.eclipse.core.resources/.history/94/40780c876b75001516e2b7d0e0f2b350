@@ -25,11 +25,7 @@ public class Main {
 		String username = "";//args[1];
 		String statsDoc = "";//args[2];
  		int days = 5;//Integer.parseInt(args[3]);
-		preprocessing(days);
-		System.out.println("processing finished, beginning analysis...");
-		initDays(days);
-	    ArrayList<Stat> base = produceMeanStd();
-	    System.out.println(base);
+		System.out.println(preprocessing(days));
 
 	}
 	
@@ -202,11 +198,16 @@ public class Main {
 	    return false;
 	}
 
-	public static void preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
+	public static ArrayList<Stat> preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
-		checkLists(Stats, Events);
-		
+		if(!checkLists(Stats, Events)){
+		return null;
+		}
+		initDays(days);
+		System.out.println("processing finished, beginning analysis...");
+	    ArrayList<Stat> base = produceMeanStd();
+	    return base;
 	}
 	
 	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{

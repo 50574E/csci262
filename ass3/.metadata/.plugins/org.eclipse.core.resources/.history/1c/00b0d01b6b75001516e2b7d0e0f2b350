@@ -25,12 +25,19 @@ public class Main {
 		String username = "";//args[1];
 		String statsDoc = "";//args[2];
  		int days = 5;//Integer.parseInt(args[3]);
-		preprocessing(days);
-		System.out.println("processing finished, beginning analysis...");
-		initDays(days);
-	    ArrayList<Stat> base = produceMeanStd();
-	    System.out.println(base);
-
+		//System.out.println(preprocessing(days));
+		
+		ArrayList<LogItem> test = new ArrayList<LogItem>();
+		test.add(new LogItem(1,2,3,"hei", 2, "hei"));
+		test.add(new LogItem(2,3,3,"hei", 2, "hei"));
+		test.add(new LogItem(0,8,4,"hei", 2, "hei"));
+		test.add(new LogItem(0,8,1,"hei", 2, "hei"));
+		test.add(new LogItem(0,3,5,"hei", 2, "hei"));
+		test.add(new LogItem(4,2,3,"hei", 2, "hei"));
+		
+		System.out.println(test);
+		Collections.sort(test);
+		System.out.println(test);
 	}
 	
 	public static void getStats() throws FileNotFoundException{
@@ -158,6 +165,7 @@ public class Main {
 	return std;
 }
 	
+	
 	public static void normal(String name,double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
 	    Random rng = new Random();
 	    double val = 0;
@@ -202,11 +210,15 @@ public class Main {
 	    return false;
 	}
 
-	public static void preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
+	public static ArrayList<Stat> preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
-		checkLists(Stats, Events);
-		
+		if(!checkLists(Stats, Events)){
+		return null;
+		}
+		initDays(days);
+	    ArrayList<Stat> base = produceMeanStd();
+	    return base;
 	}
 	
 	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{

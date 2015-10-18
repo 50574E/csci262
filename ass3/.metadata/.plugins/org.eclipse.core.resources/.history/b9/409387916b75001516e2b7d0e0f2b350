@@ -29,7 +29,6 @@ public class Main {
 		System.out.println("processing finished, beginning analysis...");
 		initDays(days);
 	    ArrayList<Stat> base = produceMeanStd();
-	    System.out.println(base);
 
 	}
 	
