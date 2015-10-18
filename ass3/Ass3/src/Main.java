@@ -219,8 +219,8 @@ public class Main {
 	    String name;
 	    String unit;
 	    LogItem printMe;
-	    // Creates the file to write to
-	    PrintWriter cDay = new PrintWriter(fileName, "UTF-8");
+	    // Creates the list with the items to print
+	    ArrayList<LogItem> log = new ArrayList();
 
 	    // Writes to the file
 	    while(eventNum != -1) {
@@ -234,10 +234,17 @@ public class Main {
 		size = eventMagnitude(type, totals[eventNum]);
 		// Puts the data into the logItem
 		printMe = new LogItem(time[0], time[1], time[2], name, size, unit);
-		// Writes the logItem in the log
-		writeToLog(cDay, printMe);
+		// Appends to log
+		log.add(printMe);
+		// Updates totals to avoid infinite loop
 		totals[eventNum] -= size;
 	    }
+	    
+	    // Creates the file to write to
+	    PrintWriter cDay = new PrintWriter(fileName, "UTF-8");
+
+	    // Writes the log to the file
+	    writeToLog(cDay, log);
 
 	    // Saves the file
 	    cDay.close();
@@ -260,12 +267,13 @@ public class Main {
 	public static double eventMagnitude(String type, double total) {
 	    Random rng = new Random();
 	    if(type.equals("D")) return 1;
+	    // This is very ugly
 	    double val = rng.nextDouble()*total*1.7;
 	    if(val > total) return total;
 	    return val;
 	}
 
-	public static void writeToLog(PrintWriter file, LogItem toPrint) {
+	public static void writeToLog(PrintWriter file, ArrayList<LogItem> Log) {
 	//fill function
 	}
 
