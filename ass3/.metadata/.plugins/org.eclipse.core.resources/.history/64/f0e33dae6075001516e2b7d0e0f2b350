@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -16,28 +15,14 @@ public class Main {
 	static int nrOfEvents;
 	// Creates days.txt and appends the names of events to top line
 	static PrintWriter day;
-	
-
 
 
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
-		String eventsDoc = "";//args[0];
-		String username = "";//args[1];
-		String statsDoc = "";//args[2];
- 		int days = 5;//Integer.parseInt(args[3]);
-		//System.out.println(preprocessing(days));
-		
-		ArrayList<LogItem> test = new ArrayList<LogItem>();
-		test.add(new LogItem(1,2,3,"hei", 2, "hei"));
-		test.add(new LogItem(2,3,3,"hei", 2, "hei"));
-		test.add(new LogItem(0,8,4,"hei", 2, "hei"));
-		test.add(new LogItem(0,8,1,"hei", 2, "hei"));
-		test.add(new LogItem(0,3,5,"hei", 2, "hei"));
-		test.add(new LogItem(4,2,3,"hei", 2, "hei"));
-		
-		System.out.println(test);
-		Collections.sort(test);
-		System.out.println(test);
+		String eventsDoc = args[0];
+		String username = args[1];
+		String statsDoc = args[2];
+ 		int days = Integer.parseInt(args[3]);
+		System.out.println(preprocessing(days));
 	}
 	
 	public static void getStats() throws FileNotFoundException{
@@ -188,8 +173,7 @@ public class Main {
 		    works = false;
 		}
 		else{
-		//System.out.println("probable statistical anomaly(?)");
-		}
+		System.out.println("still true" +name+ "    " + val +"  "+ stdDev + "  " + mean+"  "+ hasMax+ max + "  "+hasMin + min  );}
 	    }
 	    
 	    day.write(""+val+" : ");
@@ -213,9 +197,7 @@ public class Main {
 	public static ArrayList<Stat> preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
-		if(!checkLists(Stats, Events)){
-		return null;
-		}
+		checkLists(Stats, Events);
 		initDays(days);
 	    ArrayList<Stat> base = produceMeanStd();
 	    return base;

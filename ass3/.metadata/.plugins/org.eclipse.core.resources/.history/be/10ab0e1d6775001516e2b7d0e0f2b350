@@ -1,0 +1,32 @@
+
+public class LogItem implements Comparable{
+	int hours;
+	int mins;
+	int secs;
+	String name;
+	double size;
+	String unit;
+	
+	public LogItem(int hours, int mins, int secs, String name, double size, String unit) {
+		this.hours = hours;
+		this.mins = mins;
+		this.secs = secs;
+		this.name = name;
+		this.size = size;
+		this.unit = unit;
+	}
+	
+	public String toSting(){
+		return hours+":"+mins+":"+secs+"  "+ name + "  " +size +  "  " +unit; 
+	}
+
+	public int compareTo(Object o) {
+		
+		return 0;
+	}
+	
+	
+	
+	
+	
+}
