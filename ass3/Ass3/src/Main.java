@@ -278,7 +278,7 @@ public class Main {
 	    Collections.sort(Log);
 	    // Write to file
 	    for(int i = 0; i<Log.size(); i++) {
-		file.write("<"+Log.get(i).hours+":"+Log.get(i).mins+":"+Log.get(i).secs+"> "+Log.get(i).name+": "+Log.get(i).size+" "+Log.get(i).unit+"\n";
+		file.write("<"+Log.get(i).hours+":"+Log.get(i).mins+":"+Log.get(i).secs+"> "+Log.get(i).name+": "+Log.get(i).size+" "+Log.get(i).unit+"\n");
 	    }
 	}
 
