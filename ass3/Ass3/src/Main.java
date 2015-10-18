@@ -199,8 +199,83 @@ public class Main {
 	    return base;
 	}
 	
+	// Write to file function(arraylist)
+	// Instance object has Timestamp, name, size, unitType
+	// Generate day function(iterator, totalsForDay)
+	
+	public static void genDay(int dayNum, double[] totals) {
+	    // Initialize all the variables
+	    String fileName = "Day"+dayNum+".txt";
+	    int[] time = {0,0,0};
+	    Random rng = new Random();
+	    int eventNum;
+	    String type;
+	    double size;
+	    String name;
+	    String unit;
+	    logItem printMe;
+	    // Creates the file to write to
+	    PrintWriter cDay = new PrintWriter(fileName, "UTF-8");
+
+	    // Writes to the file
+	    while(eventNum != -1) {
+		eventNum = pickEvent(totals); // Chooses which event is going to happen
+		time[2] += rng.nextInt(3600);
+		time = incTime(time[0],time[1],time[2]);
+		// Gets all the data needed about the event
+		name = Events.get(eventNum).name;
+		unit = Events.get(eventNum).unit;
+		type = Events.get(eventNum).type;
+		size = eventMagnitude(type, totals[eventNum]);
+		// Puts the data into the logItem
+		printMe = new logItem(time[0], time[1], time[2], name, size, unit);
+		// Writes the logItem in the log
+		writeToLog(cDay, printMe);
+		totals[eventNum] -= size;
+	    }
+
+	    // Saves the file
+	    cDay.close();
+	}
+
+	public static int pickEvent(double[] totals) {
+	    Random rng = new Random();
+	    ArrayList<Double> newTotals = new ArrayList();
+	    for(int i = 0; i<totals.length; i++) {
+		if(totals[i] > 0) {
+		    newTotals.add(totals[i]);
+		}
+	    }
+	    if(!newTotals.isEmpty()) {
+		return rng.nextInt(newTotals.size());
+	    }
+	    return -1;
+	}
+
+	public static int eventMagnitude(String type, double total) {
+	    Random rng = new Random();
+	    if(type.Equals("D")) return 1;
+	    double val = rng.nextDouble()*total*1.7;
+	    if(val > total) return total;
+	    return val;
+	}
+
+	public static void writeToLog(PrintWriter file, logItem toPrint) {
+	    file.write("<"+time[0]+":"+time[1]+":"+time[2]+"> "+Events.get(i).name+": "+size+" "+Events.get(i).unit);
+	}
+
+	public static int[] incTime(int hrs, int min, int sec) {
+	    min += sec/60;
+	    sec = sec%60;
+	    hrs += min/60;
+	    min = min%60;
+	    hrs = hrs%60;
+	    int[] time = new int[] {hrs, min, sec};
+	    return time;
+	}
+
 	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{
-		day = new PrintWriter("Days.txt", "UTF-8");
+	    day = new PrintWriter("Days.txt", "UTF-8");
 	    // Initiates the day file with names of events
 	    for(int i = 0; i<nrOfEvents; i++) {
 		day.write(Events.get(i).name+" : ");
