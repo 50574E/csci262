@@ -1,4 +1,6 @@
-Logins TimeOnline EmailsSent DownloadVolume MoneyMade
-Day1: 123 22 34 234 234
-Day2: 444 838 282 45 43
-day3: 123 12 356 33 24 
+Logins : Time online : Emails sent : Download volume : Money made : 
+Day1: 1.5 : 35.0 : 10.0 : 20000.0 : 7000.0 : 
+Day2: 1.5 : 35.0 : 10.0 : 20000.0 : 7000.0 : 
+Day3: 1.5 : 35.0 : 10.0 : 20000.0 : 7000.0 : 
+Day4: 1.5 : 35.0 : 10.0 : 20000.0 : 7000.0 : 
+Day5: 1.5 : 35.0 : 10.0 : 20000.0 : 7000.0 : 

@@ -12,7 +12,7 @@ public class Stat {
 	}
 	
 	public String toString(){
-		return name;
+		return name + "   " +mean+ "   "+std;
 	}
 	
 	

@@ -18,13 +18,8 @@ public class Main {
 
 
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
-		
-		
-		
-
-
-		System.out.println(Stats);
-		System.out.println(Events);
+		int days = 5;
+		System.out.println(preprocessing(days));
 	}
 	
 	public static void getStats() throws FileNotFoundException{
@@ -69,15 +64,15 @@ public class Main {
 			name = nyy[0];
 			type = nyy[1];
 			if(nyy[2].isEmpty()){
-				hasMax = false;
-				max = 0;
-			}
-			else{max = Double.parseDouble(nyy[2]);}
-			if(nyy[3].isEmpty()){
 				hasMin = false;
 				min = 0;
 			}
-			else{min = Double.parseDouble(nyy[3]);}
+			else{min = Double.parseDouble(nyy[2]);}
+			if(nyy[3].isEmpty()){
+				hasMax = false;
+				max = 0;
+			}
+			else{max = Double.parseDouble(nyy[3]);}
 			if(nyy[4].isEmpty()){
 				hasUnit = false;
 				unit = "";
@@ -100,14 +95,16 @@ public class Main {
 		ArrayList<Stat> base = new ArrayList<Stat>();
 		Scanner in = new Scanner(new FileReader("Days.txt"));
 		String ini = in.nextLine();
-		String[] init = ini.split(" ");
+		String[] init = ini.split(": "); 
+		
 		in.close();
+
 		for(int i=1; i<init.length; i++){
 			Scanner inn = new Scanner(new FileReader("Days.txt"));
 			inn.nextLine();
 			ArrayList<Double> read = new ArrayList<Double>();
 			while(inn.hasNext()){
-				String[] day = inn.nextLine().split(" ");
+				String[] day = inn.nextLine().split(": ");
 				read.add(Double.parseDouble(day[i]));
 			}
 			String name = init[i];
@@ -151,7 +148,7 @@ public class Main {
 }
 	
 	
-	public static void normal(double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
+	public static void normal(String name,double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
 	    Random rng = new Random();
 	    double val = 0;
 
@@ -172,8 +169,11 @@ public class Main {
 		else if(hasMin && hasMax && min < val && val < max) {
 		    works = false;
 		}
+		else{
+		System.out.println("still true" +name+ "    " + val +"  "+ stdDev + "  " + mean+"  "+ hasMax+ max + "  "+hasMin + min  );}
 	    }
-	    day.write(""+val+" ");
+	    
+	    day.write(""+val+" : ");
 
 	    return ;
 	}
@@ -187,10 +187,10 @@ public class Main {
 	}
 	
 	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{
-		day = new PrintWriter("days.txt", "UTF-8");
+		day = new PrintWriter("Days.txt", "UTF-8");
 	    // Initiates the day file with names of events
 	    for(int i = 0; i<nrOfEvents; i++) {
-		day.write(Events.get(i).name+" ");
+		day.write(Events.get(i).name+" : ");
 	    }
 	    day.write("\n");
 	    
@@ -198,11 +198,12 @@ public class Main {
 	    for(int i = 0; i<days; i++) {
 		day.write("Day"+(i+1)+": ");
 		for(int j = 0; j<nrOfEvents; j++) {
-		    normal(Stats.get(j).std, Stats.get(j).mean, Events.get(j).min, Events.get(j).max, Events.get(j).hasMin, Events.get(j).hasMax);
+		    normal(Stats.get(j).name,Stats.get(j).std, Stats.get(j).mean, Events.get(j).min, Events.get(j).max, Events.get(j).hasMin, Events.get(j).hasMax);
 		}
 		day.write("\n");
+		
 	    }
-	    
+	    day.close();
 	}
 
 
