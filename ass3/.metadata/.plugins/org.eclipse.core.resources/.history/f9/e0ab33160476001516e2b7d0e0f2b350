@@ -335,7 +335,6 @@ public class Main {
 		if(sa.length>1){
 			statFile = sa[0];
 			days = Integer.parseInt(sa[1]);
-			//System.out.println("got: " + statFile+ " " + days);
 		}
 	
 	}

@@ -16,8 +16,6 @@ public class Main {
 	static int nrOfEvents;
 	// Creates days.txt and appends the names of events to top line
 	static PrintWriter day;
-	static String statFile;
-	static int days;
 	
 
 
@@ -32,7 +30,6 @@ public class Main {
 		initDays(days);
 	    ArrayList<Stat> base = produceMeanStd();
 	    System.out.println(base);
-	    input();
 
 	}
 	
@@ -325,20 +322,6 @@ public class Main {
 	return true;
 	}
 	
-	public static void input(){
-		String s;
-		String[] sa;
-		Scanner in = new Scanner(System.in);
-		System.out.println("Please enter new file and number of days [Stats.txt Days]" );
-		s = in.nextLine().trim();
-		sa = s.split(" ");
-		if(sa.length>1){
-			statFile = sa[0];
-			days = Integer.parseInt(sa[1]);
-			//System.out.println("got: " + statFile+ " " + days);
-		}
-	
-	}
 
 
 }
