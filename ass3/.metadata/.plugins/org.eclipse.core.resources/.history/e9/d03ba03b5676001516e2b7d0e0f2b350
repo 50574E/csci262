@@ -10,17 +10,12 @@ import java.util.Random;
 
 
 public class Main {
-	//The Stats and Events Arraylists are used to read in from file and hold event and statistical information
-	//Stats is used to hold the base information from the user input
 	static ArrayList<Stat> Stats = new ArrayList<Stat>();
 	static ArrayList<Event> Events = new ArrayList<Event>();
-	
-	//nrOfStats and nrOfEvents are used to store the number of events and number of stats from the initial files
 	static int nrOfStats;
 	static int nrOfEvents;
 	// Creates days.txt and appends the names of events to top line
 	static PrintWriter day;
-	
 	static String statFile;
 	static int days;
 	
@@ -32,22 +27,14 @@ public class Main {
 		String username = "";//args[1];
 		String statsDoc = "";//args[2];
  		int days = 5;//Integer.parseInt(args[3]);
-		//the preprocessing parses the initial input from the user and stores in Event and Stat objects as well as checking for inconsistencies
 		preprocessing(days);
 		System.out.println("processing finished, beginning analysis...");
-		//initDays creates the files from which the analysis will be done later
 		initDays(days);
-	    //produceMeanStd takes the files created in initDays and calculates the mean and standard deviation of every event and stores it in the Stats ArrayList
-	    Stats = produceMeanStd();
-	    //the actual alert system:
-	    while(input()){
-	    	checkDays(Double(days), Stats); //need to make this function, almost the same as initdays
-	    }
-	    System.out.println("finished");
+	    ArrayList<Stat> base = produceMeanStd();
+	    input();
 
 	}
 	
-	//getStats reads through the initial statistics file and stores in an ArrayList
 	public static void getStats() throws FileNotFoundException{
 		Scanner in = new Scanner(new FileReader("Stats.txt"));
 		nrOfStats = Integer.parseInt(in.nextLine());
@@ -70,7 +57,6 @@ public class Main {
 		}
 	}
 	
-	//getEvets reads through the initial event file and stores in an ArrayList
 	public static void getEvents() throws FileNotFoundException{
 		Scanner in = new Scanner(new FileReader("Events.txt"));
 		String name;
@@ -118,8 +104,6 @@ public class Main {
 		}
 	}
 	
-	//produceMeanStd iterated through each event in days and stores the number in an arraylist, theese numbers are then the basis for calculating std and mean
-	//each event, std and mean is then stored as a Stat object in a new arraylist that is returned as output when the function is run.
 	public static ArrayList<Stat> produceMeanStd() throws FileNotFoundException{
 		ArrayList<Stat> base = new ArrayList<Stat>();
 		Scanner in = new Scanner(new FileReader("Days.txt"));
@@ -149,7 +133,6 @@ public class Main {
 		
 	}
 	
-	//returns the average/mean from numbers in an Arraylist
 	public static double calcAvg(ArrayList<Double> data){
 	double n = data.size();
 	double tot = 0;
@@ -163,7 +146,6 @@ public class Main {
 	
 	}
 	
-	//returns the standard deviation from numbers in an Arraylist
 	public static double calcStd(ArrayList<Double> data){
 	double avg = calcAvg(data);
 	double n = data.size();
@@ -222,7 +204,6 @@ public class Main {
 	    return false;
 	}
 
-	//runs getStats, getEvents and checks the data for inconsistencies
 	public static void preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
 	    getStats();
 		getEvents();
@@ -367,8 +348,6 @@ public class Main {
 	    day.close();
 	}
 	
-	//checks that the number of stats and number of events is the same, checks that they have the same event types in each file. 
-	//if the input is consistent it returns true, if one of the checks fails it returns false -> the input is inconsistent
 	public static boolean checkLists(ArrayList<Stat> stats, ArrayList<Event> events){
 	if(!(stats.size() == events.size())){
 		System.out.println("input inconsistency: stats list is not same size as events list");
@@ -384,8 +363,6 @@ public class Main {
 	return true;
 	}
 	
-	//handles input from user in the runtime
-	//promts the user for input in the form [Stats.txt Days] or "quit", if the input is not in that format the user is prompted to try again
 	public static boolean input(){
 		String s;
 		String[] sa;
@@ -397,11 +374,10 @@ public class Main {
 		if(sa.length==2){
 			statFile = sa[0];
 			days = Integer.parseInt(sa[1]);
-			System.out.println("got: " + statFile+ " " + days);
+			//System.out.println("got: " + statFile+ " " + days);
 			return true;
 		}
 		if(sa.length==1 && sa[0].contains("quit")){
-			System.out.println("quitting");
 			return false;
 		}
 		

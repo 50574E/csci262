@@ -1,7 +1,5 @@
 
 public class LogItem implements Comparable<LogItem>{
-	//The logItem object is used to store information concerning a single log event. Log Items can be sorted on time, which is why
-	//it implements the Comparable interface
 	int hours;
 	int mins;
 	int secs;
