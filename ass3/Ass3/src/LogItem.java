@@ -6,14 +6,16 @@ public class LogItem implements Comparable<LogItem>{
 	String name;
 	double size;
 	String unit;
+	String type;
 	
-	public LogItem(int hours, int mins, int secs, String name, double size, String unit) {
+	public LogItem(int hours, int mins, int secs, String name, double size, String unit, String type) {
 		this.hours = hours;
 		this.mins = mins;
 		this.secs = secs;
 		this.name = name;
 		this.size = size;
 		this.unit = unit;
+		this.type = type;
 	}
 	
 	public String toString(){

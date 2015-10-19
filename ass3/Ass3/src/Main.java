@@ -225,7 +225,7 @@ public class Main {
 	    // Creates the list with the items to print
 	    ArrayList<LogItem> log = new ArrayList();
 
-	    // Writes to the file
+	    // Creates the data for the logfile
 	    while(eventNum != -1) {
 		eventNum = pickEvent(totals); // Chooses which event is going to happen
 		time[2] += rng.nextInt(3600);
@@ -236,7 +236,7 @@ public class Main {
 		type = Events.get(eventNum).type;
 		size = eventMagnitude(type, totals[eventNum]);
 		// Puts the data into the logItem
-		printMe = new LogItem(time[0], time[1], time[2], name, size, unit);
+		printMe = new LogItem(time[0], time[1], time[2], name, size, unit, type);
 		// Appends to log
 		log.add(printMe);
 		// Updates totals to avoid infinite loop
@@ -277,7 +277,43 @@ public class Main {
 	}
 
 	public static void writeToLog(PrintWriter file, ArrayList<LogItem> Log) {
-	//fill function
+	    // Sort the log by time
+	    Collections.sort(Log);
+	    String item;
+	    for(int i = 0; i<Log.size(); i++) {
+		item = "<";
+		item += timeFormat(Log.get(i).hours)+":";
+		item += timeFormat(Log.get(i).mins)+":";
+		item += timeFormat(Log.get(i).secs)+"> ";
+		item += Log.get(i).name+": ";
+		item += sizeFormat(Log.get(i).size, Log.get(i).type)+" "; 
+		item += Log.get(i).unit+"\n";
+		file.write(item);
+	    }
+	}
+
+	public static String sizeFormat(double size, String type) {
+	    if(type.equals("E")) {
+		return ""+((int) (Math.round(size)));
+	    }
+	    else if(type.equals("D")) {
+		return "1";
+	    }
+	    return rounder(""+size);
+	}
+
+	public static String rounder(String dubs) {
+	    String num = "";
+	    int stop = dubs.indexOf('.')+2;
+	    for(int i = 0; i<stop+1; i++) {
+		num += dubs.charAt(i);
+	    }
+	    return num;
+	}
+
+	public static String timeFormat(int n) {
+	    if((""+n).length() == 1) return "0"+n;
+	    return ""+n;
 	}
 
 	public static int[] incTime(int hrs, int min, int sec) {
