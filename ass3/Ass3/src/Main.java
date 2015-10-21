@@ -38,10 +38,10 @@ public class Main {
 		//initDays creates the files from which the analysis will be done later
 		initDays(days);
 	    //produceMeanStd takes the files created in initDays and calculates the mean and standard deviation of every event and stores it in the Stats ArrayList
-	    Stats = produceMeanStd();
+	    ArrayList<Stat> BaseStats = produceMeanStd();
 	    //the actual alert system:
 	    while(input()){
-	    	checkDays(Double(days), Stats); //need to make this function, almost the same as initdays
+	    	checkDays(days, BaseStats); //need to make this function, almost the same as initdays
 	    }
 	    System.out.println("finished");
 
@@ -118,7 +118,7 @@ public class Main {
 		}
 	}
 	
-	//produceMeanStd iterated through each event in days and stores the number in an arraylist, theese numbers are then the basis for calculating std and mean
+	//produceMeanStd iterated through each event in days and stores the number in an arraylist, these numbers are then the basis for calculating std and mean
 	//each event, std and mean is then stored as a Stat object in a new arraylist that is returned as output when the function is run.
 	public static ArrayList<Stat> produceMeanStd() throws FileNotFoundException{
 		ArrayList<Stat> base = new ArrayList<Stat>();
@@ -177,7 +177,9 @@ public class Main {
 	
 	return std;
 }
-	
+
+	// Uses all the information supplied to generate the total frequency of event. It then writes that value to the totals file and returns it
+	// note: There is room for improvement by adding anomaly detection
 	public static double normal(String name,double stdDev, double mean, double min, double max, boolean hasMin, boolean hasMax) {
 	    Random rng = new Random();
 	    double val = 0;
@@ -200,7 +202,8 @@ public class Main {
 		    works = false;
 		}
 		else{
-		//System.out.println("probable statistical anomaly(?)");
+		//System.out.println("probable statistical anomaly(?)")
+		// counter++ -> if counter > some_threshold then break and print(interval unreachable, check stats.txt, min & max)
 		}
 	    }
 	    
@@ -209,6 +212,7 @@ public class Main {
 	    return val;
 	}
 
+	// Asks for the totals for each event for some day and the base statistics calculated in preproccessing then flags suspicious days.
 	public static boolean alertEngine(int[] freq, ArrayList<Stat> base) {
 	    int threshold = 0;
 	    double alert = 0;
@@ -229,6 +233,14 @@ public class Main {
 		checkLists(Stats, Events);
 		
 	}
+
+	// Takes in number of days to generate, base statistics to compare to and then generates profiles for each day.
+	public static void checkDays(int days, Stat baseStats) {
+		for(int i=0; i<days; i++) {
+			
+		}
+	}
+
 	public static void genDay(int dayNum, double[] totals) throws FileNotFoundException, UnsupportedEncodingException {
 	    // Initialize all the variables
 	    String fileName = "Day"+dayNum+".txt";
@@ -245,20 +257,23 @@ public class Main {
 
 	    // Creates the data for the logfile
 	    while(eventNum != -1) {
-		eventNum = pickEvent(totals); // Chooses which event is going to happen
-		time[2] += rng.nextInt(3600);
-		time = incTime(time[0],time[1],time[2]);
-		// Gets all the data needed about the event
-		name = Events.get(eventNum).name;
-		unit = Events.get(eventNum).unit;
-		type = Events.get(eventNum).type;
-		size = eventMagnitude(type, totals[eventNum]);
-		// Puts the data into the logItem
-		printMe = new LogItem(time[0], time[1], time[2], name, size, unit, type);
-		// Appends to log
-		log.add(printMe);
-		// Updates totals to avoid infinite loop
-		totals[eventNum] = (int) (totals[eventNum]-size);
+			eventNum = pickEvent(totals); // Chooses which event is going to happen
+			time[2] += rng.nextInt(3600);
+			time = incTime(time[0],time[1],time[2]);
+			// Gets all the data needed about the event
+			name = Events.get(eventNum).name;
+			unit = Events.get(eventNum).unit;
+			type = Events.get(eventNum).type;
+			size = eventMagnitude(type, totals[eventNum]);
+			// Puts the data into the logItem
+			printMe = new LogItem(time[0], time[1], time[2], name, size, unit, type);
+			// Appends to log
+			log.add(printMe);
+			// Updates totals to avoid infinite loop
+			totals[eventNum] -= size;
+			if(totals[eventNum] < 1) {
+				totals[eventNum] = 0;
+			}
 	    }
 	    
 	    // Creates the file to write to
@@ -271,6 +286,7 @@ public class Main {
 	    cDay.close();
 	}
 
+	// Picks a random event to add to the log next
 	public static int pickEvent(double[] totals) {
 	    Random rng = new Random();
 	    ArrayList<Double> newTotals = new ArrayList<Double>();
@@ -285,15 +301,17 @@ public class Main {
 	    return -1;
 	}
 
+	// Decides the magnitude of the eventInstance for the log file.
 	public static double eventMagnitude(String type, double total) {
 	    Random rng = new Random();
 	    if(type.equals("D")) return 1;
 	    // This is very ugly
-	    double val = rng.nextDouble()*total*1.7;
+	    double val = rng.nextDouble()*total*1.3;
 	    if(val > total) return total;
 	    return val;
 	}
 
+	// Takes in the log in ArrayList form and prints it to the log text file.
 	public static void writeToLog(PrintWriter file, ArrayList<LogItem> Log) {
 	    // Sort the log by time
 	    Collections.sort(Log);
@@ -310,6 +328,7 @@ public class Main {
 	    }
 	}
 
+	// Returns the eventSize correctly formatted for the log file based on the type of the event
 	public static String sizeFormat(double size, String type) {
 	    if(type.equals("E")) {
 		return ""+((int) (Math.round(size)));
@@ -320,6 +339,7 @@ public class Main {
 	    return rounder(""+size);
 	}
 
+	// Cuts of trailing decimals after the first two (doesn't do rounding but it doesn't matter for random data anyway)
 	public static String rounder(String dubs) {
 	    String num = "";
 	    int stop = dubs.indexOf('.')+2;
@@ -329,11 +349,13 @@ public class Main {
 	    return num;
 	}
 
+	// Makes sure that the time string is of the same length e.g. 00:05:03 instead of 0:5:3)
 	public static String timeFormat(int n) {
 	    if((""+n).length() == 1) return "0"+n;
 	    return ""+n;
 	}
 
+	// Makes sure the time is correctly formatted, that is seconds < 60, minutes < 60, hours < 24.
 	public static int[] incTime(int hrs, int min, int sec) {
 	    min += sec/60;
 	    sec = sec%60;
@@ -343,7 +365,8 @@ public class Main {
 	    int[] time = new int[] {hrs, min, sec};
 	    return time;
 	}
-	
+
+	// Does everything, creates the aggregate data file and calls genDay repeatedly to generate the logs for each day
 	public static void initDays(int days) throws FileNotFoundException, UnsupportedEncodingException{
 		day = new PrintWriter("Days.txt", "UTF-8");
 	    // Initiates the day file with names of events
@@ -385,7 +408,7 @@ public class Main {
 	}
 	
 	//handles input from user in the runtime
-	//promts the user for input in the form [Stats.txt Days] or "quit", if the input is not in that format the user is prompted to try again
+	//prompts the user for input in the form [Stats.txt Days] or "quit", if the input is not in that format the user is prompted to try again
 	public static boolean input(){
 		String s;
 		String[] sa;
