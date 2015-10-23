@@ -32,11 +32,12 @@ public class Main {
  		int days = 5;//Integer.parseInt(args[3]);
 		//the preprocessing parses the initial input from the user and stores in Event and Stat objects as well as checking for inconsistencies
 		preprocessing(days);
-		System.out.println("processing finished, beginning analysis...");
+		System.out.println("finished processing, beginning analysis...");
 		//initDays creates the files from which the analysis will be done later
 		initDays();
 	    //produceMeanStd takes the files created in initDays and calculates the mean and standard deviation of every event and stores it in the Stats ArrayList
 	    ArrayList<Stat> BaseStats = produceMeanStd();
+	    System.out.println(BaseStats);
 	    //the actual alert system:
 	    while(input()){
 	    	checkDays(BaseStats); //need to make this function, almost the same as initdays
@@ -132,8 +133,9 @@ public class Main {
 			return false;
 		}
 		for(int i = 0; i<stats.size();i++){
-			if(stats.get(i).name.trim().equals(events.get(i).name.trim())){
+			if(!stats.get(i).name.trim().equals(events.get(i).name.trim())){
 				System.out.println("input inconsistency: stats names are not the same as event names");
+				System.out.println(stats.get(i).name +"    "+ events.get(i).name);
 				return false;
 			}
 		}
@@ -308,7 +310,7 @@ public class Main {
 		
 		in.close();
 
-		for(int i=1; i<init.length; i++){
+		for(int i=0; i<init.length; i++){
 			Scanner inn = new Scanner(new FileReader("Days.txt"));
 			inn.nextLine();
 			ArrayList<Double> read = new ArrayList<Double>();
@@ -320,7 +322,9 @@ public class Main {
 			double mean = calcAvg(read);
 			double std = calcStd(read);
 			
-			base.add(new Stat(name, mean, std));
+			Stat ny = new Stat(name, mean, std);
+			System.out.println(ny);
+			base.add(ny);
 			
 			inn.close();
 			
@@ -375,6 +379,7 @@ public class Main {
 	public static boolean alertEngine(double[] freq, ArrayList<Stat> base) {
 	    int threshold = 0;
 	    double alert = 0;
+	    System.out.println(freq.length + "  " + base.size());
 	    for(int i = 0; i<nrOfEvents; i++) {
 			threshold += 2*Events.get(i).weight;
 			alert += Events.get(i).weight*(freq[i]-base.get(i).mean)/base.get(i).std;
