@@ -27,10 +27,10 @@ public class Main {
 
 
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
-		String eventsDoc = "";//args[0];
-		String username = "";//args[1];
-		String statsDoc = "";//args[2];
- 		days = 5;//Integer.parseInt(args[3]);
+		String eventsDoc = args[0];
+		String username = args[1];
+		String statsDoc = args[2];
+ 		days = Integer.parseInt(args[3]);
 		//the preprocessing parses the initial input from the user and stores in Event and Stat objects as well as checking for inconsistencies
 		preprocessing(days);
 		System.out.println("finished processing, beginning analysis...");
