@@ -32,7 +32,7 @@ public class Main {
 		String statsDoc = args[2];
  		days = Integer.parseInt(args[3]);
 		//the preprocessing parses the initial input from the user and stores in Event and Stat objects as well as checking for inconsistencies
-		preprocessing(days);
+		preprocessing(eventsDoc, username, statsDoc, true);
 		System.out.println("finished processing, beginning analysis...");
 		//initDays creates the files from which the analysis will be done later
 		initDays();
@@ -41,6 +41,7 @@ public class Main {
 	    //the actual alert system:
 	    //System.out.print(BaseStats);
 	    while(input()){
+		preprocessing(eventsDoc, username, statFile, false);
 	    	checkDays(BaseStats); //need to make this function, almost the same as initdays
 	    }
 	    System.out.println("finished");
@@ -48,16 +49,20 @@ public class Main {
 	}
 
 	//runs getStats, getEvents and checks the data for inconsistencies
-	public static void preprocessing(int days) throws FileNotFoundException, UnsupportedEncodingException {
-		getStats();
-		getEvents();
+	public static void preprocessing(String events, String usr, String stats, boolean firstTime) throws FileNotFoundException, UnsupportedEncodingException {
+		System.out.println("Running intrusion detection system on "+usr+"'s data");
+		getStats(stats);
+		if(firstTime) {
+			getEvents(events);
+		}
 		checkLists(Stats, Events);
 
 	}
 	
 	//getStats reads through the initial statistics file and stores in an ArrayList
-	public static void getStats() throws FileNotFoundException{
-		Scanner in = new Scanner(new FileReader("Stats.txt"));
+	public static void getStats(String statFile) throws FileNotFoundException{
+		// This should try/catch when called in the interactive phase
+		Scanner in = new Scanner(new FileReader(statFile));
 		nrOfStats = Integer.parseInt(in.nextLine());
 		while(in.hasNext()){
 			String ny = in.nextLine();
@@ -80,8 +85,8 @@ public class Main {
 	}
 	
 	//getEvets reads through the initial event file and stores in an ArrayList
-	public static void getEvents() throws FileNotFoundException{
-		Scanner in = new Scanner(new FileReader("Events.txt"));
+	public static void getEvents(String eventFile) throws FileNotFoundException{
+		Scanner in = new Scanner(new FileReader(eventFile));
 		String name;
 		String type;
 		boolean hasMax = true;
@@ -426,7 +431,8 @@ public class Main {
 
 	// These functions are used by genDay to make things a little cleaner.
 
-	// Picks a random event to add to the log next
+	// Picks an event to add to the log next, note that this function is basically obsolete
+	// It should now take in eventNum and check if the total is depleted then return eventNum(+1)
 	public static int pickEvent(double[] totals) {
 	    for(int i = 0; i<totals.length; i++) {
 	    	if(totals[i] > 0) {
@@ -451,10 +457,10 @@ public class Main {
 	public static double eventMagnitude(String type, double total) {
 	    Random rng = new Random();
 	    if(type.equals("D")) return 1;
-	    // This is very ugly
-	    double val = rng.nextDouble()*total*1.3;
-	    if(val > total) return total;
-	    return val;
+	    // This is very ugly, could be improved with dynamic probability (1.42 would grow from 1)
+	    double val = rng.nextDouble()*total*1.25; // it has a 80% chance of splitting the total
+	    if(val > total) return total; // 20% chance of returning the total straight away
+	    return val/1.25; // the first events will be inflated, but this helps a little
 	}
 
 
@@ -495,10 +501,10 @@ public class Main {
 					" in the interval ["+Events.get(i).min+"; "+Events.get(i).max+"].");
 		}
 		else if(Events.get(i).hasMin) {
-			// Todo: Write error message
+			System.out.println("The program could not find a value with standard deviation: "+Stats.get(i).std+", mean: "+Stats.get(i).mean+" larger than "+Events.get(i).min);
 		}
 		else if(Events.get(i).hasMax) {
-			// Todo: Write error message
+			System.out.println("The program could not find a value with standard deviation: "+Stats.get(i).std+", mean: "+Stats.get(i).mean+" smaller than "+Events.get(i).max);
 		}
 		else {
 			System.out.println("This is unexpected. The type of error that caused the program to quit should not be possible with your input.");
