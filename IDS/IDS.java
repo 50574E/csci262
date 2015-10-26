@@ -62,6 +62,7 @@ public class IDS {
 	//getStats reads through the initial statistics file and stores in an ArrayList
 	public static void getStats(String statFile) throws FileNotFoundException{
 		// This should try/catch when called in the interactive phase
+		Stats.clear();
 		Scanner in = new Scanner(new FileReader(statFile));
 		nrOfStats = Integer.parseInt(in.nextLine());
 		while(in.hasNext()){
