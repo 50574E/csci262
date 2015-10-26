@@ -377,7 +377,7 @@ public class IDS {
 		double[] totals = new double[nrOfEvents];
 		for(int i=0; i<days; i++) {
 			for(int j=0; j<nrOfEvents;j++) {
-				totals[j] = normal(j, baseStats);
+				totals[j] = normal(j, Stats);
 			}
 			boolean flag = alertEngine(totals, baseStats);
 			if(flag) {

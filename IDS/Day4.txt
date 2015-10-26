@@ -1,0 +1,56 @@
+<00:38:09> Logins: 1 
+<00:43:32> Logins: 1 
+<00:52:53> Logins: 1 
+<01:12:32> Logins: 1 
+<02:06:51> Download volume: 9560 bits
+<02:17:40> Money made: 120 cents
+<03:00:06> Logins: 1 
+<03:04:30> Logins: 1 
+<03:28:19> Logins: 1 
+<03:30:40> Logins: 1 
+<03:44:26> Logins: 1 
+<04:06:55> Logins: 1 
+<05:13:45> Logins: 1 
+<06:01:18> Logins: 1 
+<06:20:15> Time online: 399.57 minutes
+<06:21:49> Money made: 6 cents
+<07:07:23> Download volume: 207 bits
+<07:46:40> Logins: 1 
+<07:50:36> Logins: 1 
+<08:07:08> Logins: 1 
+<08:12:40> Logins: 1 
+<08:13:43> Logins: 1 
+<08:31:28> Logins: 1 
+<08:32:22> Time online: 54.80 minutes
+<10:09:34> Time online: 254.98 minutes
+<10:56:01> Download volume: 195 bits
+<11:06:02> Money made: 199 cents
+<11:30:06> Logins: 1 
+<12:23:58> Logins: 1 
+<12:27:17> Logins: 1 
+<12:39:47> Logins: 1 
+<12:49:36> Logins: 1 
+<13:01:28> Logins: 1 
+<13:03:03> Time online: 44.66 minutes
+<13:57:52> Logins: 1 
+<14:02:51> Download volume: 5437 bits
+<15:08:25> Logins: 1 
+<15:27:23> Logins: 1 
+<16:20:17> Logins: 1 
+<16:33:09> Logins: 1 
+<17:14:36> Time online: 246.41 minutes
+<17:15:57> Logins: 1 
+<17:23:15> Logins: 1 
+<18:36:43> Logins: 1 
+<19:02:01> Money made: 293 cents
+<19:18:07> Logins: 1 
+<19:39:15> Logins: 1 
+<20:23:43> Logins: 1 
+<20:33:38> Logins: 1 
+<20:56:38> Emails sent: 1 
+<21:27:29> Logins: 1 
+<22:03:30> Logins: 1 
+<22:28:38> Money made: 382 cents
+<23:05:42> Emails sent: 1 
+<23:33:48> Logins: 1 
+<23:43:39> Logins: 1 
