@@ -1,5 +1,3 @@
-
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.File;
@@ -34,11 +32,12 @@ public class IDS {
  		days = Integer.parseInt(args[3]);
 		//the preprocessing parses the initial input from the user and stores in Event and Stat objects as well as checking for inconsistencies
 		preprocessing(eventsDoc, username, statsDoc, true);
-			System.out.println("finished processing, beginning analysis..."+Stats);
+			System.out.println("finished processing, beginning analysis...");
 		//initDays creates the files from which the analysis will be done later
 		initDays();
 	    //produceMeanStd takes the files created in initDays and calculates the mean and standard deviation of every event and stores it in the Stats ArrayList
 	    ArrayList<Stat> BaseStats = produceMeanStd();
+	    System.out.println(BaseStats);
 	    //the actual alert system:
 	    //System.out.print(BaseStats);
 	    while(input()){
