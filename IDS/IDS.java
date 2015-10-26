@@ -169,7 +169,7 @@ public class IDS {
 
 		for(int i = 0; i<days; i++) {
 			for(int j = 0; j<nrOfEvents; j++) {
-				allTotals[i][j] = normal(j); // Generates the total for specific event for that day.
+				allTotals[i][j] = normal(j, Stats); // Generates the total for specific event for that day.
 			}
 			totals = allTotals[i]; // so ugly, if the loop gets moved to a separate function this could be tidier I think
 			genDay(i, totals.clone()); // Generates the specifics of the day using the totals and logs to file dayi.txt
@@ -186,7 +186,7 @@ public class IDS {
 	// Uses all the information supplied to generate the total frequency of event. It then writes that value to the totals file and returns it
 	// note: There is room for improvement by adding anomaly detection
 	// TODO: Maybe Stats shouldn't be global, this function would be reusable if it got passed the Stats ArrayList.
-	public static double normal(int index) {
+	public static double normal(int index, ArrayList<Stat> Stats) {
 		String name = Stats.get(index).name;
 		double stdDev = Stats.get(index).std;
 		double mean = Stats.get(index).mean;
@@ -377,7 +377,7 @@ public class IDS {
 		double[] totals = new double[nrOfEvents];
 		for(int i=0; i<days; i++) {
 			for(int j=0; j<nrOfEvents;j++) {
-				totals[j] = normal(j);
+				totals[j] = normal(j, baseStats);
 			}
 			boolean flag = alertEngine(totals, baseStats);
 			if(flag) {
