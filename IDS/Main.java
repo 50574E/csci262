@@ -54,8 +54,8 @@ public class Main {
 		getStats(stats);
 		if(firstTime) {
 			getEvents(events);
+			checkLists(Stats, Events);
 		}
-		checkLists(Stats, Events);
 
 	}
 	
