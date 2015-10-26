@@ -186,10 +186,10 @@ public class IDS {
 	// Uses all the information supplied to generate the total frequency of event. It then writes that value to the totals file and returns it
 	// note: There is room for improvement by adding anomaly detection
 	// TODO: Maybe Stats shouldn't be global, this function would be reusable if it got passed the Stats ArrayList.
-	public static double normal(int index, ArrayList<Stat> Stats) {
-		String name = Stats.get(index).name;
-		double stdDev = Stats.get(index).std;
-		double mean = Stats.get(index).mean;
+	public static double normal(int index, ArrayList<Stat> Statsi) {
+		String name = Statsi.get(index).name;
+		double stdDev = Statsi.get(index).std;
+		double mean = Statsi.get(index).mean;
 		double min = Events.get(index).min;
 		double max = Events.get(index).max;
 		boolean hasMin = Events.get(index).hasMin;
