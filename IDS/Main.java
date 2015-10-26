@@ -33,7 +33,7 @@ public class Main {
  		days = Integer.parseInt(args[3]);
 		//the preprocessing parses the initial input from the user and stores in Event and Stat objects as well as checking for inconsistencies
 		preprocessing(eventsDoc, username, statsDoc, true);
-		System.out.println("finished processing, beginning analysis..."+Stats);
+			System.out.println("finished processing, beginning analysis..."+Stats);
 		//initDays creates the files from which the analysis will be done later
 		initDays();
 	    //produceMeanStd takes the files created in initDays and calculates the mean and standard deviation of every event and stores it in the Stats ArrayList
@@ -393,8 +393,8 @@ public class Main {
 	    for(int i = 0; i<nrOfEvents; i++) {
 			threshold += 2*Events.get(i).weight;
 			alert += Events.get(i).weight*(freq[i]-base.get(i).mean)/base.get(i).std;
-			System.out.println("Alert: "+alert+" Threshold: "+threshold);
 	    }
+		System.out.println("Alert: "+alert+" Threshold: "+threshold);
 	    if(alert > threshold) {
 			return true;
 	    }
