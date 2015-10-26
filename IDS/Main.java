@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Math
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -392,7 +393,7 @@ public class Main {
 	    double alert = 0;
 	    for(int i = 0; i<nrOfEvents; i++) {
 			threshold += 2*Events.get(i).weight;
-			alert += Events.get(i).weight*(math.abs(freq[i]-base.get(i).mean))/base.get(i).std;
+			alert += Events.get(i).weight*(Math.abs(freq[i]-base.get(i).mean))/base.get(i).std;
 	    }
 		System.out.println("Alert: "+alert+" Threshold: "+threshold);
 	    if(alert > threshold) {
