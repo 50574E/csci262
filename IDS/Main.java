@@ -393,6 +393,7 @@ public class Main {
 	    for(int i = 0; i<nrOfEvents; i++) {
 			threshold += 2*Events.get(i).weight;
 			alert += Events.get(i).weight*(freq[i]-base.get(i).mean)/base.get(i).std;
+			System.out.println("Alert: "+alert+" Threshold: "+threshold);
 	    }
 	    if(alert > threshold) {
 			return true;
