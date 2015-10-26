@@ -1,4 +1,5 @@
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.File;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 
-public class Main {
+public class IDS {
 	//The Stats and Events Arraylists are used to read in from file and hold event and statistical information
 	//Stats is used to hold the base information from the user input
 	static ArrayList<Stat> Stats = new ArrayList<Stat>(); // Maybe better off as local since we want new Stats each iteration? or is overwriting fine?
